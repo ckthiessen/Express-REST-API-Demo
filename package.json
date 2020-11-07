@@ -1,0 +1,29 @@
+{
+  "name": "express-rest-api-presentation",
+  "version": "1.0.0",
+  "description": "REST API demo application for SENG 513 presentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckthiessen/Express-REST-API-Presentation.git"
+  },
+  "author": "Cole Thiessen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ckthiessen/Express-REST-API-Presentation/issues"
+  },
+  "homepage": "https://github.com/ckthiessen/Express-REST-API-Presentation#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "express": "^4.17.1",
+    "vue": "^2.6.12",
+    "vuetify": "^2.3.16"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-plugin-vue": "^7.1.0"
+  }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <title>RESTful Animals</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-card min-height=90vh width="90%" class="mx-auto mt-5">
+            <v-card-title class="d-flex justify-space-between">
+                <h1 class="display-2"> RESTful Animals </h1>
+            </v-card-title>
+            <v-card-text>
+                <v-form autocomplete="off" @submit.prevent="send_message">
+                    <v-text-field 
+                        label="Animal Name"
+                        v-model="name"
+                        prepend-icon="mdi-label"
+                    ></v-text-field>
+                    <v-text-field 
+                        label="Animal Type"
+                        v-model="type"
+                        prepend-icon="mdi-book-variant"
+                    ></v-text-field>
+                    <v-text-field 
+                        label="Animal Description"
+                        v-model="description"
+                        prepend-icon="mdi-information"
+                    ></v-text-field>
+                    <v-text-field 
+                        label="Hyperlink to a photo"
+                        v-model="link"
+                        prepend-icon="mdi-camera"
+                    ></v-text-field>
+                    <v-btn type="submit"
+                    color="info"
+                    > Send </v-btn>
+                </v-form>
+            </v-card-text>
+            <v-card min-height=90vh width="90%" class="mx-auto mt-5">
+            <v-card-title class="d-flex justify-space-between">
+                <h1 class="display-2"> Animals </h1>
+            </v-card-title>
+                <v-list  class="my-3"  v-for="animal in animals">
+                    <v-card width=50% class="mx-auto my-4">
+                        <v-img width=100% :src="animal.image" class="mx-auto">
+                        </v-img>
+                    </v-card>
+                </v-list>
+            </v-card>
+        </v-app>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    // const axios = require("axios").default;
+
+    // Creating a new Vue Instance
+    new Vue({
+        
+        // Adding a root element to our vue app
+        el: '#app',
+
+        vuetify: new Vuetify(),
+
+        // Declaring our data object with empty arrays and properties
+        data: {
+            animals: null,
+        },
+        
+        methods: {
+            send_message() {
+            }
+
+        },
+
+
+        // Register GET Animals listener
+        created() {
+            axios.get("/animals")
+                .then(response => {
+                    this.animals = response.data;
+                })
+        }
+    });
+</script>
+
+</html>

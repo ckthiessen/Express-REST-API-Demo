@@ -1,0 +1,30 @@
+[
+    {
+        "id"  : 1, 
+        "name": "Monkey",
+        "type": "Mammal",
+        "description": "There are currently 264 known monkey species. Monkeys can be divided into two groups, Old World monkeys that live in Africa and Asia, and New World monkeys that live in South America.A baboon is an example of an Old World monkey, while a marmoset is an example of a New World monkey.Apes are not monkeys.Some monkeys live on the ground, while others live in trees.Different monkey species eat a variety of foods, such as fruit, insects, flowers, leaves and reptiles.Most monkeys have tails.Groups of monkeys are known as a ‘tribe’, ‘troop’ or ‘mission’.The Pygmy Marmoset is the smallest type of monkey, with adults weighing between 120 and 140 grams.The Mandrill is the largest type of monkey, with adult males weighing up to 35 kg.Capuchin monkeys are believed to be one of the smartest New World monkey species. They have the ability to use tools, learn new skills and show various signs of self-awareness.Spider monkeys get their name because of their long arms, legs and tail.The monkey is the 9th animal that appears on the Chinese zodiac, appearing as the zodiac sign in 2016.",
+        "image": "https://tse2.mm.bing.net/th?id=OIP.arvrYDZVkp9gF9IwOJBpowHaE8&pid=Api"
+    },
+    {
+        "id"  : 2, 
+        "name": "Peacock",
+        "type": "Bird",
+        "description": "Peacocks are large, colorful pheasants (typically blue and green) known for their iridescent tails. These tail feathers, or coverts, spread out in a distinctive train that is more than 60 percent of the bird’s total body length and boast colorful eye markings of blue, gold, red, and other hues. The large train is used in mating rituals and courtship displays. It can be arched into a magnificent fan that reaches across the bird's back and touches the ground on either side. Females are believed to choose their mates according to the size, color, and quality of these outrageous feather trains.Peacocks are ground-feeders that eat insects, plants, and small creatures. There are two familiar peacock species. The blue peacock lives in India and Sri Lanka, while the green peacock is found in Java and Myanmar (Burma). A more distinct and little-known species, the Congo peacock, inhabits African rain forests.Peafowl such as the blue peacock have been admired by humans and kept as pets for thousands of years. Selective breeding has created some unusual color combinations, but wild birds are themselves bursting with vibrant hues. They can be testy and do not mix well with other domestic birds.",
+        "image": "https://i.pinimg.com/736x/e2/cb/b8/e2cbb86deac7fc57c226c4ef966f1cc3--green-peacock-peacocks.jpg"
+    },
+    {
+        "id"  : 3, 
+        "name": "Tortoise",
+        "type": "Reptile",
+        "description": "A tortoise's shell is made up of 60 different bones all connected to each other The top of a tortoise's shell is called a “carapace” The underside of the shell is called a “plastron” The carapace and the plastron of a tortoises shell is connected by what is known as a bridge Tortoises can retract their heads and all their limbs including their tails into their shells when they feel threatened or attacked by predators Tortoises have extremely strong mouths but no teeth instead they have horny type beaks Tortoises have good all round vision and a very good sense of smell Tortoises are cold-blooded – they draw heat from their environment and are more active during the day than at night Tortoises can live a very long time, some to the ripe old age of 150. However, the average age a tortoise can live to ranges from 90 to 150 years Tortoises are what is known as herbivores, they eat grass, ferns, flowers, tree leaves and fruit Female tortoises are usually larger than their male counterparts Females dig burrows in which they can lay up anything from 1 to 30 eggs A male tortoise has a longer tail than that of a female, which is one way of sexing them When baby tortoises break out of their shells they are called hatchlingsTortoise eggs incubate between 90 to 120 days to hatch out Tortoises hibernate in the winter time and before they do, they starve themselves so their stomachs are empty ready for hibernation",
+        "image": "https://furrytips.com/wp-content/uploads/2018/05/turtle-2520565_1280.jpg"
+    },
+    {
+        "id"  : 4, 
+        "name": "Zebra",
+        "type": "Mammal",
+        "description": "Zebra are part of the equidae family along with horse and donkeys.Every zebra has a unique pattern of black and white stripes.There are a number of different theories which attempt to explain zebra’s unique stripes with most relating to camouflage.Wild zebras live in Africa.Common plain zebras have tails around half a metre in length (18 inches).Zebra crossings (pedestrian crossings) are named after the black and white stripes of zebras.Zebras run from side to side to being chased by a predator.Zebras have excellent eyesight and hearing.Zebras stand up while sleeping.Zebras eat mostly grass.The ears of a zebra show its mood.A zebra named Marty starred in the 2005 animated film Madagascar.",
+        "image": "http://news.bbc.co.uk/media/images/49486000/jpg/_49486574_zebra2_pa.jpg"
+    }
+]
