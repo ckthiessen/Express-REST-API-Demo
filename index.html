@@ -1,135 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
     <title>RESTful Animals</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <v-app>
-            <v-card width="90%" class="mx-auto mt-5">
-            <v-card-title class="d-flex justify-space-between">
-                <h1 class="display-2 text-decoration-underline"> RESTful Animals </h1>
-            </v-card-title>
-            <v-card-text>
-                <h1 class="display-1 my-2"> Create an animal </h1>
-                <v-form autocomplete="off" @submit.prevent="send_message">
-                    <v-text-field 
-                        label="Animal Name"
-                        v-model="animal.name"
-                        prepend-icon="mdi-label"
-                    ></v-text-field>
-                    <v-text-field 
-                        label="Animal Type"
-                        v-model="animal.type"
-                        prepend-icon="mdi-book-variant"
-                    ></v-text-field>
-                    <v-text-field 
-                        label="Animal Description"
-                        v-model="animal.description"
-                        prepend-icon="mdi-information"
-                    ></v-text-field>
-                    <v-text-field 
-                        label="Hyperlink to a photo"
-                        v-model="animal.link"
-                        prepend-icon="mdi-camera"
-                    ></v-text-field>
-                    <v-btn type="submit"
-                    color="info"
-                    > Create </v-btn>
-                    <v-btn type="submit"
-                    color="warning"
-                    > Update </v-btn>
-                    <v-btn type="submit"
-                    color="error"
-                    > Delete </v-btn>
-                </v-form>
-            </v-card-text>
+      <v-app>
+        <v-card width="90%" class="mx-auto mt-5">
+          <v-card-title class="d-flex justify-space-between">
+            <h1 class="display-2 text-decoration-underline">RESTful Animals</h1>
+          </v-card-title>
+          <v-card-text>
+            <h1 class="display-1 my-2">Create an animal</h1>
+            <v-form autocomplete="off">
+              <v-text-field
+                label="Animal Name"
+                v-model="animal.name"
+                prepend-icon="mdi-label"
+              ></v-text-field>
+              <v-text-field
+                label="Animal Type"
+                v-model="animal.type"
+                prepend-icon="mdi-book-variant"
+              ></v-text-field>
+              <v-text-field
+                label="Animal Description"
+                v-model="animal.description"
+                prepend-icon="mdi-information"
+              ></v-text-field>
+              <v-text-field
+                label="Hyperlink to a photo"
+                v-model="animal.link"
+                prepend-icon="mdi-camera"
+              ></v-text-field>
+              <v-btn color="info" @click="createAnimal"> Create </v-btn>
+              <v-btn color="warning" @click="updateAnimal"> Update </v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
+        <v-card min-height="90vh" width="90%" class="mx-auto mt-5">
+          <v-card-text>
+            <v-form autocomplete="off">
+              <v-text-field
+                label="Search By Animal Name"
+                v-model="search"
+                prepend-icon="mdi-label"
+              ></v-text-field>
+              <v-btn @click="findAnimal" color="info"> Search </v-btn>
+              <v-btn @click="findAllAnimals" color="info"> Search All </v-btn>
+              <v-btn @click="deleteAnimal" color="error"> Delete </v-btn>
+            </v-form>
+            <p class="mt-5">{{ searchMessage }}</p>
+          </v-card-text>
+          <v-card-title class="d-flex justify-space-between">
+            <h1 class="display-2">Animals</h1>
+          </v-card-title>
+          <v-list class="my-3" v-for="animal in animals" :key="animal.id">
+            <v-card width="50%" class="mx-auto my-4">
+              <v-card-title> {{ animal.name }} </v-card-title>
+              <v-img width="100%" :src="animal.image" class="mx-auto"> </v-img>
             </v-card>
-            <v-card min-height=90vh width="90%" class="mx-auto mt-5">
-            <v-card-text>
-                <v-form autocomplete="off" @submit.prevent="find_animals">
-                    <v-text-field 
-                        label="Enter Animal Name (or enter nothing for all animals)"
-                        v-model="search"
-                        prepend-icon="mdi-label"
-                    ></v-text-field>
-                    <v-btn 
-                    type="submit"
-                    color="info"
-                    > Search </v-btn>
-                </v-form>
-            </v-card-text>
-            <v-card-title class="d-flex justify-space-between">
-                <h1 class="display-2"> Animals </h1>
-            </v-card-title>
-                <v-list  class="my-3"  v-for="animal in animals" :key="animal.id">
-                    <v-card width=50% class="mx-auto my-4">
-                        <v-card-title>
-                            {{ animal.name }}
-                        </v-card-title>
-                        <v-img width=100% :src="animal.image" class="mx-auto">
-                        </v-img>
-                    </v-card>
-                </v-list>
-            </v-card>
-        </v-app>
+          </v-list>
+        </v-card>
+      </v-app>
     </div>
-</body>
+  </body>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<script>
+  <script>
     // const axios = require("axios").default;
 
     // Creating a new Vue Instance
     new Vue({
-        
-        // Adding a root element to our vue app
-        el: '#app',
+      // Adding a root element to our vue app
+      el: "#app",
 
-        vuetify: new Vuetify(),
+      vuetify: new Vuetify(),
 
-        // Declaring our data object with empty arrays and properties
-        data: {
-            animals: null,
-            search: "",
-            animal: {
-                name: "", 
-                type: "",
-                description: "",
-                link: ""
+      // Declaring our data object with empty arrays and properties
+      data: {
+        animals: null,
+        search: "",
+        animal: {
+          name: "",
+          type: "",
+          description: "",
+          link: "",
+        },
+        searchMessage: "",
+        createUpdateMessage: "",
+      },
+
+      methods: {
+        validateForm() {
+            animal.forEach((field) => {
+                if(field === "") {
+                    this.createUpdateMessage = "Please fill out all fields and try again"
+                    setTimeout(() => this.createUpdateMessage = "", 3000);
+                    return false;
+                }
+            });
+            return true;
+        },
+
+        createAnimal() {
+            if(validateForm()) {
+                axios.post("/animals", JSON.strigify(this.animal))
+                .then((response) => {
+                    this.createUpdateMessage = response.data;
+                })
+                .catch((err) => {
+                    this.createUpdateMessage = response.data;
+                })
+                animal.forEach(element => {
+                    element = "";
+                });
             }
         },
-        
-        methods: {
-            send_message() {
-            },
-            
-            find_animals() {
-                if(this.search === "") {
-                    axios.get("/animals")
-                        .then(response => {
-                            console.log(response.data)
-                            this.animals = response.data;
-                        })
-                } else {
-                    axios.get("/animals/" + this.search)
-                        .then(response => {
-                            console.log(response.data)
-                            this.animals = response.data;
-                        })
-                }
-             }
-        },
-    });
-</script>
 
+        updateAnimal() {
+            axios.put("/animal/"+this.animal.name, JSON.stringify(this.animal))
+            .then((response) => {
+                this.createUpdateMessage = response.data;
+            })
+            .catch((err) => {
+                this.createUpdateMessage = response.data;
+            })
+            animal.forEach(element => {
+                element = "";
+            });
+        },
+
+        deleteAnimal() {
+          let animalSearch = this.search; // Need this to prevent this.search getting cleared before checking if animal exists in current displayed animals
+          axios
+            .delete("/animals/" + this.search)
+            .then((response) => {
+              this.searchMessage = response.data;                
+              if(index = this.animals.findIndex(animal => animal.name === animalSearch) !== -1) {
+                this.animals.splice(index, 1);
+              }
+            })
+            .catch((err) => {
+              this.searchMessage = err.response.data;
+            });
+            setTimeout(() => this.searchMessage = "", 3000);
+            this.search = "";
+        },
+
+        findAllAnimals() {
+          axios.get("/animals").then((response) => {
+            this.animals = response.data;
+          });
+          this.search = "";
+        },
+
+        findAnimal() {
+          axios
+            .get("/animals/" + this.search)
+            .then((response) => {
+              this.animals = response.data;
+            })
+            .catch((err) => {
+              this.searchMessage = err.response.data;
+              setTimeout(() => this.searchMessage = "", 3000);
+            });
+            this.search = "";
+        },
+      },
+    });
+  </script>
 </html>
