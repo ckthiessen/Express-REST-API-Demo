@@ -30,27 +30,18 @@
             <v-form autocomplete="off">
               <v-text-field
                 label="Animal Name"
-                v-model="animal.name"
+                v-model="name"
                 prepend-icon="mdi-label"
               ></v-text-field>
               <v-text-field
-                label="Animal Type"
-                v-model="animal.type"
-                prepend-icon="mdi-book-variant"
-              ></v-text-field>
-              <v-text-field
-                label="Animal Description"
-                v-model="animal.description"
-                prepend-icon="mdi-information"
-              ></v-text-field>
-              <v-text-field
                 label="Hyperlink to a photo"
-                v-model="animal.link"
+                v-model="image"
                 prepend-icon="mdi-camera"
               ></v-text-field>
               <v-btn color="info" @click="createAnimal"> Create </v-btn>
               <v-btn color="warning" @click="updateAnimal"> Update </v-btn>
             </v-form>
+            <p class="my-3">{{ createUpdateMessage }}</p>
           </v-card-text>
         </v-card>
         <v-card min-height="90vh" width="90%" class="mx-auto mt-5">
@@ -70,7 +61,7 @@
           <v-card-title class="d-flex justify-space-between">
             <h1 class="display-2">Animals</h1>
           </v-card-title>
-          <v-list class="my-3" v-for="animal in animals" :key="animal.id">
+          <v-list class="my-3" v-for="animal in animals" :key="animal.name">
             <v-card width="50%" class="mx-auto my-4">
               <v-card-title> {{ animal.name }} </v-card-title>
               <v-img width="100%" :src="animal.image" class="mx-auto"> </v-img>
@@ -99,54 +90,49 @@
       data: {
         animals: null,
         search: "",
-        animal: {
-          name: "",
-          type: "",
-          description: "",
-          link: "",
-        },
+        name: "",
+        image: "",
         searchMessage: "",
         createUpdateMessage: "",
       },
 
       methods: {
-        validateForm() {
-            animal.forEach((field) => {
-                if(field === "") {
-                    this.createUpdateMessage = "Please fill out all fields and try again"
-                    setTimeout(() => this.createUpdateMessage = "", 3000);
-                    return false;
-                }
-            });
-            return true;
-        },
-
         createAnimal() {
-            if(validateForm()) {
-                axios.post("/animals", JSON.strigify(this.animal))
+            if(this.name === "" || this.image === "") {
+                this.createUpdateMessage = "Please fill out all fields and try again"
+            } else {
+                let name = this.name;
+                let image = this.image;
+                axios.post("/animals", {name, image})
                 .then((response) => {
                     this.createUpdateMessage = response.data;
                 })
                 .catch((err) => {
-                    this.createUpdateMessage = response.data;
+                    this.createUpdateMessage = err.response.data;
                 })
-                animal.forEach(element => {
-                    element = "";
-                });
+                setTimeout(() => this.createUpdateMessage = "", 3000);
+                this.name = "";
+                this.image = "";
             }
         },
 
         updateAnimal() {
-            axios.put("/animal/"+this.animal.name, JSON.stringify(this.animal))
-            .then((response) => {
-                this.createUpdateMessage = response.data;
-            })
-            .catch((err) => {
-                this.createUpdateMessage = response.data;
-            })
-            animal.forEach(element => {
-                element = "";
-            });
+            if(this.name === "" || this.image === "") {
+                this.createUpdateMessage = "Please fill out all fields and try again"
+            } else {
+                let name = this.name;
+                let image = this.image;
+                axios.patch("/animals", {name, image})
+                .then((response) => {
+                    this.createUpdateMessage = response.data;
+                })
+                .catch((err) => {
+                    this.createUpdateMessage = err.response.data;
+                })
+                setTimeout(() => this.createUpdateMessage = "", 3000);
+                this.name = "";
+                this.image = "";
+            }
         },
 
         deleteAnimal() {
@@ -169,6 +155,7 @@
         findAllAnimals() {
           axios.get("/animals").then((response) => {
             this.animals = response.data;
+          console.log(response.data)
           });
           this.search = "";
         },

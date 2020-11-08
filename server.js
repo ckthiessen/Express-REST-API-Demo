@@ -3,8 +3,9 @@ let express = require("express");
 let app = express();
 let http = require("http").Server(app);
 let json = require('./animals.json');
+let bodyParser = require('body-parser');
 
-let largestId = json.animals.map((animal) => animal.id).reduce((max, curr) => curr > max ? curr : max);
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
@@ -61,12 +62,28 @@ app.delete("/animals/:name", (req, res) => {
   }
   else {
     console.log(requestedAnimal + " could not be deleted");
-    res.status(404).send("Could not find requested animal");
+    res.status(404).send("Could not find " + requestedAnimal);
   }
 });
 
 app.post("/animals", (req, res) => {
-  let animal = JSON.parse(req.body);
+    let animal = req.body;
+    json.animals.push(animal);
+    res.send("Successfully created " + animal.name);
+    console.log("Successfully created " + animal.name);
+});
+
+app.patch("/animals", (req, res) => {
+    let requestedAnimal = req.body;
+    let animalToReplace = json.animals.filter((animal) => animal.name === requestedAnimal.name)[0];
+    if(animalToReplace !== null) {
+      animalToReplace.image = requestedAnimal.image;
+      res.send("Successfully updated " + requestedAnimal.name + " image");
+      console.log("Successfully update " + requestedAnimal.name + " image");
+    } else {
+      console.log(requestedAnimal + " could not be updated");
+      res.status(404).send("Could not find " + requestedAnimal);
+    }
 });
 
 
