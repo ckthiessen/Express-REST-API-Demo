@@ -1,7 +1,7 @@
 {
-  "name": "express-rest-api-presentation",
+  "name": "vue-express-rest-api-restful-animals",
   "version": "1.0.0",
-  "description": "REST API demo application for SENG 513 presentation",
+  "description": "CRUD REST API demo of resting animals",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

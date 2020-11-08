@@ -140,8 +140,9 @@
           axios
             .delete("/animals/" + this.search)
             .then((response) => {
-              this.searchMessage = response.data;                
-              if(index = this.animals.findIndex(animal => animal.name === animalSearch) !== -1) {
+              this.searchMessage = response.data;
+              let index = this.animals.findIndex(animal => animal.name === animalSearch);
+              if(index !== -1) {
                 this.animals.splice(index, 1);
               }
             })
@@ -155,7 +156,6 @@
         findAllAnimals() {
           axios.get("/animals").then((response) => {
             this.animals = response.data;
-          console.log(response.data)
           });
           this.search = "";
         },
