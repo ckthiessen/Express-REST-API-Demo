@@ -12,43 +12,67 @@
 <body>
     <div id="app">
         <v-app>
-            <v-card min-height=90vh width="90%" class="mx-auto mt-5">
+            <v-card width="90%" class="mx-auto mt-5">
             <v-card-title class="d-flex justify-space-between">
-                <h1 class="display-2"> RESTful Animals </h1>
+                <h1 class="display-2 text-decoration-underline"> RESTful Animals </h1>
             </v-card-title>
             <v-card-text>
+                <h1 class="display-1 my-2"> Create an animal </h1>
                 <v-form autocomplete="off" @submit.prevent="send_message">
                     <v-text-field 
                         label="Animal Name"
-                        v-model="name"
+                        v-model="animal.name"
                         prepend-icon="mdi-label"
                     ></v-text-field>
                     <v-text-field 
                         label="Animal Type"
-                        v-model="type"
+                        v-model="animal.type"
                         prepend-icon="mdi-book-variant"
                     ></v-text-field>
                     <v-text-field 
                         label="Animal Description"
-                        v-model="description"
+                        v-model="animal.description"
                         prepend-icon="mdi-information"
                     ></v-text-field>
                     <v-text-field 
                         label="Hyperlink to a photo"
-                        v-model="link"
+                        v-model="animal.link"
                         prepend-icon="mdi-camera"
                     ></v-text-field>
                     <v-btn type="submit"
                     color="info"
-                    > Send </v-btn>
+                    > Create </v-btn>
+                    <v-btn type="submit"
+                    color="warning"
+                    > Update </v-btn>
+                    <v-btn type="submit"
+                    color="error"
+                    > Delete </v-btn>
                 </v-form>
             </v-card-text>
+            </v-card>
             <v-card min-height=90vh width="90%" class="mx-auto mt-5">
+            <v-card-text>
+                <v-form autocomplete="off" @submit.prevent="find_animals">
+                    <v-text-field 
+                        label="Enter Animal Name (or enter nothing for all animals)"
+                        v-model="search"
+                        prepend-icon="mdi-label"
+                    ></v-text-field>
+                    <v-btn 
+                    type="submit"
+                    color="info"
+                    > Search </v-btn>
+                </v-form>
+            </v-card-text>
             <v-card-title class="d-flex justify-space-between">
                 <h1 class="display-2"> Animals </h1>
             </v-card-title>
-                <v-list  class="my-3"  v-for="animal in animals">
+                <v-list  class="my-3"  v-for="animal in animals" :key="animal.id">
                     <v-card width=50% class="mx-auto my-4">
+                        <v-card-title>
+                            {{ animal.name }}
+                        </v-card-title>
                         <v-img width=100% :src="animal.image" class="mx-auto">
                         </v-img>
                     </v-card>
@@ -76,22 +100,35 @@
         // Declaring our data object with empty arrays and properties
         data: {
             animals: null,
+            search: "",
+            animal: {
+                name: "", 
+                type: "",
+                description: "",
+                link: ""
+            }
         },
         
         methods: {
             send_message() {
-            }
-
+            },
+            
+            find_animals() {
+                if(this.search === "") {
+                    axios.get("/animals")
+                        .then(response => {
+                            console.log(response.data)
+                            this.animals = response.data;
+                        })
+                } else {
+                    axios.get("/animals/" + this.search)
+                        .then(response => {
+                            console.log(response.data)
+                            this.animals = response.data;
+                        })
+                }
+             }
         },
-
-
-        // Register GET Animals listener
-        created() {
-            axios.get("/animals")
-                .then(response => {
-                    this.animals = response.data;
-                })
-        }
     });
 </script>
 

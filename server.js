@@ -12,9 +12,10 @@ const options = {
   second: "2-digit"
 };
 
-let json = JSON.parse(require('./animals.json'));
+let json = require('./animals.json');
+let largestId = json.animals.map((animal) => animal.id).reduce((max, curr) => curr > max ? curr : max);
+console.log(largestId)
 
-console.log(json);
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -23,10 +24,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/animals", (req, res) => {
-  console.log("File requested");
-  res.sendFile(__dirname + "/animals.json");
+  console.log("All animals requested");
+  res.send(json.animals);
 });
 
+app.get("/animals/:name", (req, res) => {
+  const requestedAnimal = req.params.name;
+  console.log(requestedAnimal + " requested");
+  if(json.animals.map((animal) => animal.name).includes(requestedAnimal)) {
+    console.log(requestedAnimal + " sent");
+    res.send(json.animals.filter(animal => animal.name === requestedAnimal));
+  }
+  else {
+    res.status(404).send("Could not find requested animal");
+  }
+  
+});
 
 app.post("/animals", (req, res) => {
   console.log("File requested");
