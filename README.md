@@ -12,5 +12,5 @@ Vue CRUD REST API demo of RESTful animals. Server already contains a few example
 * Delete: Enter an **existing** animal's name press the DELETE button. Animal will be deleted from the server.
 
 ## Running Instructions 
-To run, enter "node server.js" in the console and go to localhost:3000 in your browswer. Must have node.js installed in order to run. 
+To run, enter "node server.js" in the console and go to localhost:3000 in your browser. Must have node.js installed in order to run. 
 

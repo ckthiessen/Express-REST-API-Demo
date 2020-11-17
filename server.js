@@ -75,13 +75,13 @@ app.post("/animals", (req, res) => {
 app.patch("/animals", (req, res) => {
     let requestedAnimal = req.body;
     let animalToReplace = json.animals.filter((animal) => animal.name === requestedAnimal.name)[0];
-    if(animalToReplace !== null) {
+    if(animalToReplace) {
       animalToReplace.image = requestedAnimal.image;
       res.send("Successfully updated " + requestedAnimal.name + " image");
       console.log("Successfully update " + requestedAnimal.name + " image");
     } else {
-      console.log(requestedAnimal + " could not be updated");
-      res.status(404).send("Could not find " + requestedAnimal);
+      console.log(requestedAnimal.name + " could not be updated");
+      res.status(404).send("Could not find " + requestedAnimal.name);
     }
 });
 

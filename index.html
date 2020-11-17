@@ -98,42 +98,56 @@
       },
 
       methods: {
+        checkURL(url) {
+          return url.match(/\.(jpeg|jpg|gif|png)$/) != null;
+        },
+
         createAnimal() {
-            if(this.name === "" || this.image === "") {
-                this.createUpdateMessage = "Please fill out all fields and try again"
-            } else {
-                let name = this.name;
-                let image = this.image;
-                axios.post("/animals", {name, image})
-                .then((response) => {
-                    this.createUpdateMessage = response.data;
-                })
-                .catch((err) => {
-                    this.createUpdateMessage = err.response.data;
-                })
-                setTimeout(() => this.createUpdateMessage = "", 3000);
-                this.name = "";
-                this.image = "";
-            }
+          if (this.name === "" || this.image === "") {
+            this.createUpdateMessage =
+              "Please fill out all fields and try again";
+          } else if (!this.checkURL(this.image)) {
+            this.createUpdateMessage =
+              "Supported image types are .jpg .jpeg .gif .png";
+          } else {
+            let name = this.name;
+            let image = this.image;
+            axios
+              .post("/animals", { name, image })
+              .then((response) => {
+                this.createUpdateMessage = response.data;
+              })
+              .catch((err) => {
+                this.createUpdateMessage = err.response.data;
+              });
+            setTimeout(() => (this.createUpdateMessage = ""), 3000);
+            this.name = "";
+            this.image = "";
+          }
         },
 
         updateAnimal() {
-            if(this.name === "" || this.image === "") {
-                this.createUpdateMessage = "Please fill out all fields and try again"
-            } else {
-                let name = this.name;
-                let image = this.image;
-                axios.patch("/animals", {name, image})
-                .then((response) => {
-                    this.createUpdateMessage = response.data;
-                })
-                .catch((err) => {
-                    this.createUpdateMessage = err.response.data;
-                })
-                setTimeout(() => this.createUpdateMessage = "", 3000);
-                this.name = "";
-                this.image = "";
-            }
+          if (this.name === "" || this.image === "") {
+            this.createUpdateMessage =
+              "Please fill out all fields and try again";
+          } else if (!this.checkURL(this.image)) {
+            this.createUpdateMessage =
+              "Supported image types are .jpg .jpeg .gif .png";
+          } else {
+            let name = this.name;
+            let image = this.image;
+            axios
+              .patch("/animals", { name, image })
+              .then((response) => {
+                this.createUpdateMessage = response.data;
+              })
+              .catch((err) => {
+                this.createUpdateMessage = err.response.data;
+              });
+            setTimeout(() => (this.createUpdateMessage = ""), 3000);
+            this.name = "";
+            this.image = "";
+          }
         },
 
         deleteAnimal() {
@@ -142,16 +156,18 @@
             .delete("/animals/" + this.search)
             .then((response) => {
               this.searchMessage = response.data;
-              let index = this.animals.findIndex(animal => animal.name === animalSearch);
-              if(index !== -1) {
+              let index = this.animals.findIndex(
+                (animal) => animal.name === animalSearch
+              );
+              if (index !== -1) {
                 this.animals.splice(index, 1);
               }
             })
             .catch((err) => {
               this.searchMessage = err.response.data;
             });
-            setTimeout(() => this.searchMessage = "", 3000);
-            this.search = "";
+          setTimeout(() => (this.searchMessage = ""), 3000);
+          this.search = "";
         },
 
         findAllAnimals() {
@@ -169,9 +185,9 @@
             })
             .catch((err) => {
               this.searchMessage = err.response.data;
-              setTimeout(() => this.searchMessage = "", 3000);
+              setTimeout(() => (this.searchMessage = ""), 3000);
             });
-            this.search = "";
+          this.search = "";
         },
       },
     });
