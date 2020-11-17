@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 let express = require("express");
 let app = express();
 let http = require("http").Server(app);
